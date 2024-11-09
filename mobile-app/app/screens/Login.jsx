@@ -3,19 +3,19 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import axios from 'axios';
 import Config from '../../config/Config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-
+import { CommonActions, useNavigation } from '@react-navigation/native';
+import { useAuth } from '../(tabs)/index';
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
-
+  const { login } = useAuth();
   const handleLogin = async () => {
     try {
       const response = await axios.post(`${Config.backendUrl}/api/auth/login`, { email, password });
       await AsyncStorage.setItem('token', response.data.token); // Store the token
       // console.log(response.data.token);
-      navigation.navigate("OsCommandScreen")
+      await login(response.data.token);
     } catch (err) {
       Alert.alert('Login Failed', 'Invalid credentials');
     }

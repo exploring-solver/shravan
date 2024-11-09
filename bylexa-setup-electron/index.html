@@ -1,0 +1,160 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>shravan Installer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .step h3 {
+            margin-top: 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>shravan Setup Assistant</h1>
+        
+        <div class="step">
+            <h3>Step 1: Install Ollama</h3>
+            <button id="install-ollama">Install Ollama</button>
+            <div id="ollama-status" class="status"></div>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Install shravan</h3>
+            <button id="install-shravan" disabled>Install shravan</button>
+            <div id="shravan-status" class="status"></div>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Start shravan</h3>
+            <button id="start-shravan" disabled>Start shravan</button>
+            <div id="start-status" class="status"></div>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Login to shravan</h3>
+            <button id="login-shravan" disabled>Login to shravan</button>
+            <div id="login-status" class="status"></div>
+        </div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        document.getElementById('install-ollama').addEventListener('click', async () => {
+            try {
+                const status = document.getElementById('ollama-status');
+                status.textContent = 'Installing Ollama...';
+                status.className = 'status';
+                
+                await ipcRenderer.invoke('install-ollama');
+                
+                status.textContent = 'Ollama installed successfully!';
+                status.className = 'status success';
+                document.getElementById('install-shravan').disabled = false;
+            } catch (error) {
+                const status = document.getElementById('ollama-status');
+                status.textContent = `Error: ${error}`;
+                status.className = 'status error';
+            }
+        });
+
+        document.getElementById('install-shravan').addEventListener('click', async () => {
+            try {
+                const status = document.getElementById('shravan-status');
+                status.textContent = 'Installing shravan...';
+                status.className = 'status';
+                
+                await ipcRenderer.invoke('install-shravan');
+                
+                status.textContent = 'shravan installed successfully!';
+                status.className = 'status success';
+                document.getElementById('start-shravan').disabled = false;
+            } catch (error) {
+                const status = document.getElementById('shravan-status');
+                status.textContent = `Error: ${error}`;
+                status.className = 'status error';
+            }
+        });
+
+        document.getElementById('start-shravan').addEventListener('click', async () => {
+            try {
+                const status = document.getElementById('start-status');
+                status.textContent = 'Starting shravan...';
+                status.className = 'status';
+                
+                await ipcRenderer.invoke('start-shravan');
+                
+                status.textContent = 'shravan started successfully!';
+                status.className = 'status success';
+                document.getElementById('login-shravan').disabled = false;
+            } catch (error) {
+                const status = document.getElementById('start-status');
+                status.textContent = `Error: ${error}`;
+                status.className = 'status error';
+            }
+        });
+
+        document.getElementById('login-shravan').addEventListener('click', async () => {
+            try {
+                const status = document.getElementById('login-status');
+                status.textContent = 'Logging in to shravan...';
+                status.className = 'status';
+                
+                await ipcRenderer.invoke('login-shravan');
+                
+                status.textContent = 'Logged in successfully!';
+                status.className = 'status success';
+            } catch (error) {
+                const status = document.getElementById('login-status');
+                status.textContent = `Error: ${error}`;
+                status.className = 'status error';
+            }
+        });
+    </script>
+</body>
+</html>

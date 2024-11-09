@@ -35,33 +35,52 @@ const setupWebSocket = (server) => {
         try {
           const parsedMessage = JSON.parse(message.toString());
           console.log('Received message:', parsedMessage);
-          
+
           switch (parsedMessage.action) {
             case 'join_room':
               handleJoinRoom(email, parsedMessage, ws);
               break;
-              
+
             case 'broadcast':
               handleBroadcast(email, parsedMessage);
               break;
-              
+
             case 'show_notification':
               handleNotification(email, parsedMessage);
               break;
-            
+
             case 'python_output':
               handlePythonOutput(email, parsedMessage);
               break;
             case 'python_execute':
               handlePythonExecution(email, parsedMessage);
               break;
-              
+
             case 'direct_message':
               handleDirectMessage(email, parsedMessage);
               break;
-              
+
             case 'leave_room':
               handleLeaveRoom(email, parsedMessage);
+              break;
+
+            case 'notebook_execute':
+              handleNotebookExecution(email, parsedMessage);
+              break;
+
+            case 'notebook_result':
+              handleNotebookResult(email, parsedMessage);
+              break;
+
+            case 'save_notebook':
+              // Forward save request to the executing client
+              const roomCode = clients[email]?.room;
+              if (roomCode) {
+                broadcastToRoom(roomCode, email, {
+                  action: 'save_notebook',
+                  sender: email
+                });
+              }
               break;
               
             default:
@@ -118,21 +137,55 @@ const sendCommandToAgent = (userEmail, command) => {
   }
 };
 
+const handleNotebookExecution = (email, message) => {
+  const roomCode = clients[email]?.room;
+  if (!roomCode) {
+    clients[email].ws.send(JSON.stringify({
+      error: 'You must be in a room to execute notebook cells'
+    }));
+    return;
+  }
+
+  // Forward the execution request to all clients in the room
+  broadcastToRoom(roomCode, email, {
+    action: 'notebook_execute',
+    code: message.code,
+    cell_id: message.cell_id,
+    sender: email
+  });
+};
+
+const handleNotebookResult = (email, message) => {
+  const originalSender = message.original_sender;
+  if (originalSender && clients[originalSender]) {
+    // Send the execution result back to the original sender
+    clients[originalSender].ws.send(JSON.stringify({
+      action: 'notebook_result',
+      result: message.result,
+      cell_id: message.cell_id,
+      code: message.code,
+      executor: email
+    }));
+
+    console.log(`Notebook execution result sent back to ${originalSender} from ${email}`);
+  }
+};
+
 // Handler functions for different message types
 const handleJoinRoom = (email, message, ws) => {
   const roomCode = message.room_code;
   if (roomCode) {
     joinRoom(email, roomCode);
     console.log(`User ${email} joined room ${roomCode}`);
-    
+
     // Notify all room members about the new participant
     broadcastToRoom(roomCode, email, {
       action: 'user_joined',
       message: `${email} has joined the room`,
       user: email
     });
-    
-    ws.send(JSON.stringify({ 
+
+    ws.send(JSON.stringify({
       action: 'room_joined',
       message: `Joined room ${roomCode}`,
       room_code: roomCode
@@ -142,7 +195,7 @@ const handleJoinRoom = (email, message, ws) => {
 
 const handleBroadcast = (email, message) => {
   const roomCode = clients[email]?.room;
-  console.log("message in broadcast",message);
+  console.log("message in broadcast", message);
   if (!roomCode) {
     clients[email].ws.send(JSON.stringify({
       error: 'You must be in a room to broadcast messages'
@@ -185,7 +238,7 @@ const handlePythonOutput = (email, message) => {
       code: message.code,
       executor: email
     }));
-    
+
     console.log(`Python execution result sent back to ${originalSender} from ${email}`);
   } else {
     console.log(`Original sender ${originalSender} not found for Python output`);
@@ -211,7 +264,7 @@ const handlePythonExecution = (email, message) => {
 const handleDirectMessage = (email, message) => {
   const targetEmail = message.target;
   const clientSocket = clients[targetEmail]?.ws;
-  
+
   if (clientSocket && clientSocket.readyState === WebSocket.OPEN) {
     clientSocket.send(JSON.stringify({
       action: 'direct_message',
@@ -239,7 +292,7 @@ const broadcastToRoom = (roomCode, senderEmail, command) => {
   if (room) {
     console.log(`Broadcasting to room ${roomCode} from ${senderEmail}:`, command);
     console.log('Room members:', Array.from(room));
-    
+
     let broadcastCount = 0;
     room.forEach((email) => {
       if (email !== senderEmail) {
@@ -263,7 +316,7 @@ const broadcastToRoom = (roomCode, senderEmail, command) => {
 // Helper functions
 const joinRoom = (email, roomCode) => {
   leaveRoom(email);
-  
+
   if (!rooms[roomCode]) {
     rooms[roomCode] = new Set();
   }

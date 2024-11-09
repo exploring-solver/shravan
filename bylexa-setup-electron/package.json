@@ -1,0 +1,29 @@
+{
+  "name": "shravan-installer",
+  "version": "1.0.0",
+  "description": "Desktop installer for shravan and Ollama",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.shravan.installer",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "shravan"
+    }
+  },
+  "dependencies": {
+    "electron": "^33.1.0",
+    "electron-builder": "^25.1.8",
+    "electron-is-dev": "^2.0.0"
+  }
+}
