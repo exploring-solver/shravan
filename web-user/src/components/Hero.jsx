@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 // src/components/Hero.jsx
 import React from 'react';
 import { Parallax } from 'react-parallax';
 import { motion } from 'framer-motion';
-import ParticleBackground from './ParticleBackground';
+// import ParticleBackground from './ParticleBackground';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
