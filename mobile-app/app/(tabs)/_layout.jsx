@@ -3,14 +3,8 @@ import React from 'react';
 
 export default function StackLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen
-        name="index"
-        options={{
+    <Stack screenOptions={{  headerShown: false,}}>
+      <Stack.Screen name="index" options={{
           title: 'Home',
         }}
       />

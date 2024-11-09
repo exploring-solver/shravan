@@ -4,6 +4,8 @@ import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import axios from 'axios';
 import Config from '../../config/Config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const OsCommandScreen = () => {
     const [isListening, setIsListening] = useState(false);
@@ -11,6 +13,7 @@ const OsCommandScreen = () => {
     const [response, setResponse] = useState('');
     const [error, setError] = useState(null);
     const [recording, setRecording] = useState(null);
+    const navigation = useNavigation();
 
     useEffect(() => {
         return () => {
@@ -123,10 +126,20 @@ const OsCommandScreen = () => {
         }
     };
 
+    const handleLogout = async () => {
+        try {
+            await AsyncStorage.removeItem('token'); // Remove the token from storage
+            navigation.navigate('welcome'); // Navigate to welcome screen
+        } catch (err) {
+            console.error('Error during logout:', err);
+            setError('Failed to log out.');
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Shravan&apos;s {"\n"}Voice Command Interface</Text>
-            <Text style={styles.subtitle}>You are logged in!!</Text>
+            <Text style={styles.subtitle}>{}</Text>
 
             <TouchableOpacity
                 onPress={isListening ? stopListening : startListening}
@@ -147,7 +160,7 @@ const OsCommandScreen = () => {
                 <Text style={styles.buttonText}>Send Command</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setError('Logged out')} style={styles.logoutButton}>
+            <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                 <Text style={styles.buttonText}>Logout</Text>
             </TouchableOpacity>
 
@@ -168,7 +181,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        padding: 20,
+        padding: 30,
         backgroundColor: '#1F2937', // Dark theme background
     },
     title: {
