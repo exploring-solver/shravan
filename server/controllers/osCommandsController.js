@@ -19,7 +19,7 @@ enter all urls with https untill mentioned explicitly to be http or something el
 - Possible keys include:
   whenever a script is mentioned pass the action as "script" and name of script in "script_name"
   - **action**: The primary action to perform (e.g., "open", "run", "script", "copy", "delete", "move", "schedule", "media", "close").
-  - **application**: The application name involved (e.g., "notepad", "media player", "any application name give in command").
+  - **application**: The application name involved (e.g., "notepad", "media player", "any application name give in command","pass it as chrome if a website is to be opened").
   - **task**: Specific task or URL (e.g., "google.com", "write a letter").
   - **file_path**: Path to a file or directory.
   - **command_line**: Command-line instruction to execute.
