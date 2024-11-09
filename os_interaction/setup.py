@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="shravan",
-    version="1.2.1",
+    version="1.0.0",
     packages=find_packages(),
     install_requires=[
         "aioconsole==0.8.1",

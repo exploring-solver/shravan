@@ -6,7 +6,7 @@ import Config from '../config/Config';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useSt44ate('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
