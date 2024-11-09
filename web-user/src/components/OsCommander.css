@@ -1,0 +1,93 @@
+/* JARVIS-like styling for Voice Assistant */
+
+.jarvis-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #0a0c12;
+    color: #00e5ff;
+    font-family: "Orbitron", sans-serif;  /* A futuristic font */
+    height: 100vh;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0, 229, 255, 0.7), 0px 0px 30px rgba(0, 229, 255, 0.3);
+  }
+  
+  .jarvis-title {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    text-shadow: 0px 0px 8px #00e5ff;
+  }
+  
+  .jarvis-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .jarvis-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00e5ff;
+    background-color: transparent;
+    border: 2px solid #00e5ff;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .jarvis-btn::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 30px;
+    border: 2px solid transparent;
+    background: linear-gradient(45deg, #00e5ff, transparent);
+    transition: all 0.3s ease;
+    opacity: 0;
+  }
+  
+  .jarvis-btn:hover::after {
+    opacity: 1;
+    animation: glow-animation 1.5s infinite;
+  }
+  
+  .listening {
+    background-color: #00e5ff;
+    color: #0a0c12;
+    box-shadow: 0px 0px 30px rgba(0, 229, 255, 0.7);
+  }
+  
+  .stop-btn {
+    background-color: #ff1744;
+    color: white;
+  }
+  
+  .jarvis-command, .jarvis-response, .jarvis-error {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    text-shadow: 0px 0px 6px #00e5ff;
+  }
+  
+  .jarvis-command span, .jarvis-response span, .jarvis-error span {
+    font-weight: bold;
+    color: #ffeb3b;
+  }
+  
+  @keyframes glow-animation {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.7);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+    }
+  }
+  

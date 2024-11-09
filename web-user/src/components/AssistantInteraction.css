@@ -1,0 +1,125 @@
+/* Assistant Interaction Page - Jarvis Themed */
+
+.jarvis-bg {
+  background-color: #0b0f1a;
+  background-image: radial-gradient(circle, rgba(0, 229, 255, 0.1), transparent);
+  min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.jarvis-box {
+  background-color: rgba(13, 17, 29, 0.8);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 20px rgba(0, 229, 255, 0.4);
+}
+
+.jarvis-title {
+  font-size: 2.5rem;
+  color: #00e5ff;
+  text-shadow: 0px 0px 10px rgba(0, 229, 255, 0.7);
+  font-weight: bold;
+}
+
+.jarvis-textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  background-color: #151b2b;
+  border: 1px solid #00e5ff;
+  color: #00e5ff;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.jarvis-textarea:focus {
+  border-color: #00c1e5;
+}
+
+.jarvis-btn {
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: #00e5ff;
+  border: 2px solid #00e5ff;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.jarvis-btn::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  bottom: -4px;
+  left: -4px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, #00e5ff, transparent);
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.jarvis-btn:hover::after {
+  opacity: 1;
+  animation: glow 1.5s infinite;
+}
+
+.active-btn {
+  background-color: #00e5ff;
+  color: #0b0f1a;
+}
+
+.disabled-btn {
+  background-color: #3a3f50;
+  color: #b0b0b0;
+  cursor: not-allowed;
+}
+
+.listening-btn {
+  background-color: #ff3d00;
+}
+
+.start-listening-btn {
+  background-color: #000000;
+}
+
+.jarvis-response-box {
+  background-color: #151b2b;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 229, 255, 0.4);
+  animation: fadeIn 1s ease;
+}
+
+.jarvis-error-box {
+  background-color: #ff3d00;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(255, 61, 0, 0.4);
+  animation: fadeIn 1s ease;
+}
+
+@keyframes glow {
+  0%, 100% {
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.7);
+  }
+  50% {
+      box-shadow: 0 0 40px rgba(0, 229, 255, 0.3);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}

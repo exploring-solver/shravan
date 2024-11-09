@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.glowing-text {
+    color: #fff; /* Default white color */
+    text-shadow: 
+        0 0 10px rgba(255, 105, 180, 0.8), /* Pinkish shadow */
+        0 0 20px rgba(255, 105, 180, 0.8), /* Pinkish shadow */
+        0 0 30px rgba(0, 255, 0, 0.8), /* Green glow */
+        0 0 40px rgba(0, 255, 0, 1), /* Strong green glow */
+        0 0 70px rgba(0, 255, 0, 1), /* Stronger green glow */
+        0 0 100px rgba(0, 255, 0, 1); /* Strongest green glow */
+    transition: text-shadow 0.3s ease-in-out;
+}
+
+.glowing-text:hover {
+    text-shadow: 
+        0 0 20px rgba(255, 105, 180, 1), /* Stronger pinkish shadow on hover */
+        0 0 30px rgba(255, 105, 180, 1), 
+        0 0 40px rgba(0, 255, 0, 1), 
+        0 0 60px rgba(0, 255, 0, 1), 
+        0 0 80px rgba(0, 255, 0, 1),
+        0 0 120px rgba(0, 255, 0, 1); /* More intense green glow on hover */
+}
+.logout-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .logout-btn {
+    background-color: #ff4d4d; /* Red color for logout */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    background-color: #ff1a1a; /* Darker red on hover */
+  }
