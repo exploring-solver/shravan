@@ -1,0 +1,15 @@
+{
+    "windows": {
+        "chrome": [
+            "C:\\CustomPath\\Chrome\\chrome.exe"
+        ],
+        "notepad": [
+            "C:\\Windows\\notepad.exe"
+        ]
+    },
+    "linux": {
+        "custom_app": [
+            "/usr/bin/custom_app"
+        ]
+    }
+}

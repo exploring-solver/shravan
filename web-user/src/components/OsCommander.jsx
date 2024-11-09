@@ -82,7 +82,7 @@ const OsCommander = () => {
 
   return (
     <div className="jarvis-container">
-      <h1 className="jarvis-title">Bylexa Voice Command Interface</h1>
+      <h1 className="jarvis-title">shravan Voice Command Interface</h1>
       
       <div className="jarvis-buttons">
         <button

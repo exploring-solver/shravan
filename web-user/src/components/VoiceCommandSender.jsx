@@ -51,7 +51,7 @@ const VoiceCommandSender = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center text-white font-sans">
-      <h1 className="text-4xl font-bold mb-6 text-center text-cyan-300">Bylexa Voice Command Interface</h1>
+      <h1 className="text-4xl font-bold mb-6 text-center text-cyan-300">shravan Voice Command Interface</h1>
       <h1 className="text-xl font-bold mb-6 text-center text-cyan-300">You are logged in!!</h1>
       
       <button 

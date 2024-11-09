@@ -1,0 +1,7 @@
+*node_modules*
+*.env
+/test
+*__pycache__
+os_interaction/build
+os_interaction/dist
+os_interaction/myenv

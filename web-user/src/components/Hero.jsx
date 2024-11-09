@@ -20,7 +20,7 @@ const Hero = () => {
                         <h1
                             className="text-5xl font-bold mb-4 glowing-text"
                         >
-                            Bylexa G.O.A.T.
+                            shravan G.O.A.T.
                         </h1>
                         <p
                             className="text-xl mb-8 glowing-text"

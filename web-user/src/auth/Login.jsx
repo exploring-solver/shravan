@@ -23,7 +23,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-3xl font-bold text-center text-teal-400 mb-6">Bylexa Login</h2>
+        <h2 className="text-3xl font-bold text-center text-teal-400 mb-6">shravan Login</h2>
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleLogin} className="space-y-4">
           <input 
