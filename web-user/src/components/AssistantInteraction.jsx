@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Mic, MicOff } from 'lucide-react';
 import Config from '../config/Config';
+import MicrophoneButton from './MicrophoneButton';
 
 const AssistantInteraction = () => {
     const [userCommand, setUserCommand] = useState('');
@@ -14,12 +15,12 @@ const AssistantInteraction = () => {
     useEffect(() => {
         if ('webkitSpeechRecognition' in window) {
             recognitionRef.current = new window.webkitSpeechRecognition();
-            recognitionRef.current.continuous = true;
+            recognitionRef.current.continuous = false; // Stop after each phrase
             recognitionRef.current.interimResults = false;
 
             recognitionRef.current.onresult = (event) => {
-                const transcript = event.results[event.results.length - 1][0].transcript;
-                setUserCommand((prev) => prev + ' ' + transcript);
+                const transcript = event.results[0][0].transcript;
+                setUserCommand(transcript); // Set command to the recognized transcript
             };
 
             recognitionRef.current.onerror = (event) => {
@@ -29,7 +30,8 @@ const AssistantInteraction = () => {
             };
 
             recognitionRef.current.onend = () => {
-                setIsListening(false);
+                setIsListening(false); // Stop listening
+                sendCommandToAssistant(); // Automatically send command when listening ends
             };
         }
 
@@ -44,15 +46,15 @@ const AssistantInteraction = () => {
         setUserCommand(e.target.value);
     };
 
-    const sendCommandToAssistant = async (command = userCommand) => {
-        if (!command.trim()) return;
+    const sendCommandToAssistant = async () => {
+        if (!userCommand.trim()) return;
 
         setIsLoading(true);
         setError(null);
 
         try {
             const response = await axios.post(`${Config.backendUrl}/api/commands/assistant-command`, {
-                command: command,
+                command: userCommand,
             });
 
             setAssistantResponse(response.data.response);
@@ -94,9 +96,10 @@ const AssistantInteraction = () => {
     };
 
     return (
-        <div className="bg-[#0b0f1a] bg-radial-gradient from-[rgba(0,229,255,0.1)] to-transparent min-h-screen text-white p-8 font-['Orbitron']">
+        <div className="bg-[#0b0f1a] bg-radial-gradient from-[rgba(0,229,255,0.1)] to-transparent min-h-screen text-white p-8">
             <div className="max-w-2xl mx-auto bg-[rgba(13,17,29,0.8)] p-8 rounded-2xl shadow-[0_0_20px_rgba(0,229,255,0.4)]">
-                <h1 className="text-4xl text-[#00e5ff] text-center mb-8 font-bold shadow-[0_0_10px_rgba(0,229,255,0.7)]">Voice Assistant</h1>
+                <h1 className="text-4xl text-[#00e5ff] text-center mb-8 font-bold">Voice Assistant</h1>
+
                 <div className="mb-6">
                     <textarea
                         className="w-full h-24 p-3 bg-[#151b2b] border border-[#00e5ff] text-[#00e5ff] text-lg rounded-lg outline-none transition-colors duration-300 focus:border-[#00c1e5]"
@@ -108,23 +111,21 @@ const AssistantInteraction = () => {
 
                 <div className="flex justify-between mb-6">
                     <button
-                        className={`px-5 py-3 text-lg font-bold uppercase bg-transparent text-[#00e5ff] border-2 border-[#00e5ff] rounded-lg cursor-pointer relative transition-all duration-300 hover:after:opacity-100 after:content-[''] after:absolute after:top-[-4px] after:right-[-4px] after:bottom-[-4px] after:left-[-4px] after:rounded-lg after:border-2 after:border-transparent after:bg-gradient-to-r after:from-[#00e5ff] after:to-transparent after:opacity-0 after:transition-opacity after:duration-300 ${
+                        className={`px-5 py-3 text-lg font-bold uppercase bg-transparent text-[#00e5ff] border-2 border-[#00e5ff] rounded-lg cursor-pointer relative transition-all duration-300 ${
                             isLoading ? 'bg-[#3a3f50] text-[#b0b0b0] cursor-not-allowed' : 'hover:bg-[#00e5ff] hover:text-[#0b0f1a]'
                         }`}
-                        onClick={() => sendCommandToAssistant()}
+                        onClick={sendCommandToAssistant}
                         disabled={isLoading}
                     >
                         {isLoading ? 'Processing...' : 'Send Command'}
                     </button>
-                    <button
-                        className={`px-5 py-3 text-lg font-bold uppercase bg-transparent text-[#00e5ff] border-2 border-[#00e5ff] rounded-lg cursor-pointer relative transition-all duration-300 hover:after:opacity-100 after:content-[''] after:absolute after:top-[-4px] after:right-[-4px] after:bottom-[-4px] after:left-[-4px] after:rounded-lg after:border-2 after:border-transparent after:bg-gradient-to-r after:from-[#00e5ff] after:to-transparent after:opacity-0 after:transition-opacity after:duration-300 flex items-center ${
-                            isListening ? 'bg-[#ff3d00]' : 'bg-black'
-                        }`}
-                        onClick={toggleListening}
-                    >
-                        {isListening ? <MicOff className="mr-2" /> : <Mic className="mr-2" />}
-                        {isListening ? 'Stop Listening' : 'Start Listening'}
-                    </button>
+
+                    <MicrophoneButton 
+                        isListening={isListening} 
+                        onClick={toggleListening} 
+                        startIcon={<Mic className="mr-2" />} 
+                        stopIcon={<MicOff className="mr-2" />} 
+                    />
                 </div>
 
                 {assistantResponse && (

@@ -14,7 +14,7 @@ const Login = () => {
     try {
       const response = await axios.post(`${Config.backendUrl}/api/auth/login`, { email, password });
       localStorage.setItem('token', response.data.token);
-      navigate('/module-command');  // Navigate to a protected route after login
+      navigate('/os-command');  // Navigate to a protected route after login
     } catch (err) {
       setError('Invalid credentials');
     }

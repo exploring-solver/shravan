@@ -7,8 +7,7 @@
     justify-content: center;
     padding: 20px;
     background-color: #0a0c12;
-    color: #00e5ff;
-    font-family: "Orbitron", sans-serif;  /* A futuristic font */
+    /* font-family: "Orbitron", sans-serif;  A futuristic font */
     height: 100vh;
     text-align: center;
     border-radius: 15px;
@@ -34,7 +33,7 @@
     font-weight: bold;
     color: #00e5ff;
     background-color: transparent;
-    border: 2px solid #00e5ff;
+    border: 2px solid ;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -48,8 +47,8 @@
     left: -5px;
     right: -5px;
     bottom: -5px;
-    border-radius: 30px;
-    border: 2px solid transparent;
+    /* border-radius: 30px;
+    border: 2px solid transparent; */
     background: linear-gradient(45deg, #00e5ff, transparent);
     transition: all 0.3s ease;
     opacity: 0;
@@ -67,7 +66,7 @@
   }
   
   .stop-btn {
-    background-color: #ff1744;
+    background-color: #150451;
     color: white;
   }
   

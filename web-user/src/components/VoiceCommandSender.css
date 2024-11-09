@@ -1,0 +1,41 @@
+/* Pulse scaling effect for listening */
+.animate-pulse-scale {
+    animation: pulse-scale 0.6s infinite alternate;
+  }
+  
+  @keyframes pulse-scale {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.2);
+    }
+  }
+  
+  /* Animated listening circles */
+  .animate-listening::before,
+  .animate-listening::after {
+    content: '';
+    position: absolute;
+    border: 3px solid rgba(0, 183, 255, 0.4);
+    border-radius: 50%;
+    width: 150%;
+    height: 150%;
+    animation: listening-circle 1.2s infinite ease-in-out;
+  }
+  
+  .animate-listening::after {
+    animation-delay: 0.6s;
+  }
+  
+  @keyframes listening-circle {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+  

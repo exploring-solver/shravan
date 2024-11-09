@@ -7,22 +7,50 @@
     text-shadow: 
         0 0 10px rgba(255, 105, 180, 0.8), /* Pinkish shadow */
         0 0 20px rgba(255, 105, 180, 0.8), /* Pinkish shadow */
-        0 0 30px rgba(0, 255, 0, 0.8), /* Green glow */
-        0 0 40px rgba(0, 255, 0, 1), /* Strong green glow */
-        0 0 70px rgba(0, 255, 0, 1), /* Stronger green glow */
-        0 0 100px rgba(0, 255, 0, 1); /* Strongest green glow */
+        0 0 30px rgba(51, 36, 148, 0.8), /* Green glow */
+        0 0 40px rgb(22, 70, 168), /* Strong green glow */
+        0 0 70px rgb(44, 99, 219), /* Stronger green glow */
+        0 0 100px rgb(34, 48, 154); /* Strongest green glow */
     transition: text-shadow 0.3s ease-in-out;
 }
 
+
 .glowing-text:hover {
-    text-shadow: 
-        0 0 20px rgba(255, 105, 180, 1), /* Stronger pinkish shadow on hover */
-        0 0 30px rgba(255, 105, 180, 1), 
-        0 0 40px rgba(0, 255, 0, 1), 
-        0 0 60px rgba(0, 255, 0, 1), 
-        0 0 80px rgba(0, 255, 0, 1),
-        0 0 120px rgba(0, 255, 0, 1); /* More intense green glow on hover */
+  text-shadow: 
+  0 0 20px rgba(255, 105, 180, 1), /* Stronger pinkish shadow on hover */
+  0 0 30px rgba(255, 105, 180, 1), 
+  0 0 40px rgb(17, 61, 132), 
+  0 0 60px rgb(40, 62, 136), 
+  0 0 80px rgb(11, 60, 113),
+  0 0 120px rgb(11, 25, 54); /* More intense green glow on hover */
 }
+
+@keyframes summon-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summon-effect {
+  animation: summon-from-bottom 1s ease-out;
+}
+
+/* @keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typing-effect {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 4s steps(30, end);
+} */
 .logout-container {
     margin-top: 20px;
     text-align: center;
