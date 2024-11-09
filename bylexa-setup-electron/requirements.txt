@@ -1,0 +1,7 @@
+click
+websockets
+requests
+PyJWT
+pyperclip
+schedule
+aioconsole
