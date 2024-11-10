@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import VoiceCommandSender from '../components/VoiceCommandSender';
+// import VoiceCommandSender from '../components/VoiceCommandSender';
 
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('token');
