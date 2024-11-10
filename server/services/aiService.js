@@ -5,7 +5,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 
 exports.getAssistantResponse = async (command) => {
-  const prompt = `You are a helpful voice assistant. Given the following user command: "${command}", 
+  const prompt = `You are a helpful voice assistant named Shravan. Given the following user command: "${command}", 
   respond with an appropriate and natural answer`;
 
   try {
