@@ -26,7 +26,7 @@ const authRoutes = require('./routes/authRoutes');
 
 // Main route
 app.get('/', (req, res) => {
-  res.json("Hello there!! This is Bylexa (G.O.A.T.) The Large Multi-Action Model");
+  res.json("Hello there!! This is Shravan (G.O.A.T.) The Large Multi-Action Model");
 });
 
 // Additional routes
