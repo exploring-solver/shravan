@@ -5,7 +5,7 @@ import { Linkedin, Github, Twitter } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-gray-400 py-6 relative">
+    <footer className="bg-black text-gray-400 py-6 relative overflow-x-hidden">
       <div className="max-w-screen-xl mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           
