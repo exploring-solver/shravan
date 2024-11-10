@@ -10,6 +10,7 @@ const VoiceCommandSender = () => {
   const [assistantResponse, setAssistantResponse] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [developerMode, setDeveloperMode] = useState(false); // New state for Developer Mode
   const navigate = useNavigate();
 
   const speakResponse = (text) => {
@@ -118,11 +119,22 @@ const VoiceCommandSender = () => {
           <h2 className="text-2xl font-semibold text-cyan-300 mb-4">Assistant Response:</h2>
           <p className="text-gray-300 whitespace-pre-wrap mb-6">{assistantResponse}</p>
 
-          <h2 className="text-2xl font-semibold text-cyan-300 mb-4">System Response:</h2>
-          <p className="text-gray-300 whitespace-pre-wrap">
-            {osResponse && JSON.stringify(osResponse, null, 2)}
-          </p>
+          {developerMode && ( // Conditionally render based on developer mode
+            <>
+              <h2 className="text-2xl font-semibold text-cyan-300 mb-4">Shravan:</h2>
+              <p className="text-gray-300 whitespace-pre-wrap">
+                {osResponse && JSON.stringify(osResponse, null, 2)}
+              </p>
+            </>
+          )}
         </div>
+
+        <button 
+          onClick={() => setDeveloperMode(!developerMode)} 
+          className="mt-6 px-6 py-3 bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-400 hover:to-teal-400 text-white font-bold rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+        >
+          {developerMode ? "Disable Developer Mode" : "Enable Developer Mode"}
+        </button>
 
         <button 
           onClick={logout} 

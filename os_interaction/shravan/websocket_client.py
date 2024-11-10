@@ -13,8 +13,8 @@ from nbformat.v4 import new_notebook, new_code_cell
 from datetime import datetime
 import os
 
-WEBSOCKET_SERVER_URL = 'ws://localhost:3000/ws'
-# WEBSOCKET_SERVER_URL = 'wss://shravan.onrender.com/ws'
+# WEBSOCKET_SERVER_URL = 'ws://localhost:3000/ws'
+WEBSOCKET_SERVER_URL = 'wss://bylexa.onrender.com/ws'
 
 class NotebookManager:
     def __init__(self):
